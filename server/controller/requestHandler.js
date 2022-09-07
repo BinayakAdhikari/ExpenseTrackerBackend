@@ -58,9 +58,9 @@ exports.getAll = (Model) =>
         path: "addedBy",
         select: "username email",
         model: "User",
-      })
-      .sort({ addedOn: -1 });
-
+    })
+    .sort({ addedOn: -1 });  
+     
     if (doc.length == 0) {
       return res.status(404).json({
         status: "Success",
