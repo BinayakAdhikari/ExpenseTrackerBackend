@@ -1,0 +1,22 @@
+const express = require("express");
+const authenticationController = require("../../controller/authenticationController");
+
+const router = express.Router();
+
+
+router.route("/")
+    .get((req, res) => {
+        res.render('login', { title: 'Login' });
+    });
+
+router.route("/")
+    .post((req, res, next) => {
+        var email = req.body.email;
+        var password = req.body.password;
+
+        if (email && password) {
+            authenticationController.login(req, res, next);
+        }
+    });
+
+module.exports = router;

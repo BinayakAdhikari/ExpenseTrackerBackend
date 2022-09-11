@@ -7,6 +7,7 @@ const bankRouter = require('./server/routes/bankRoutes');
 const keywordRouter = require('./server/routes/keywordRoutes');
 const appError = require('./server/utils/appError');
 
+const authViewRouter = require('./server/routes/viewRoutes/authViewRoutes');
 const globalErrorHandler = require('./server/controller/errorController');
 
 const app = express();
@@ -20,22 +21,10 @@ app.use("/api/v1/banks", bankRouter);
 app.use("/api/v1/keywords", keywordRouter);
 
 app.get('/', (req, res) => {
-  const blogs = [
-    {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-    {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-    {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-  ];
-  res.render('index', { title: 'Home', blogs });
+  res.render('index', { title: 'Home'});
 });
 
-app.get('/about', (req, res) => {
-  res.render('about', { title: 'About' });
-});
-
-app.get('/blogs/create', (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-});
-
+app.use('/login', authViewRouter);
 
 app.all('*', (req, res, next) => {
   next(new appError(`Can't find ${req.originalUrl} on this server!`, 404));
