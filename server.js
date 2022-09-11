@@ -21,6 +21,9 @@ then(()=>{
 
 const PORT = process.env.PORT || 3000;
 
+// register view engine
+app.set('view engine', 'ejs');
+
 app.listen(PORT, () => {
     console.log("Server Started at port " + PORT);
   });
