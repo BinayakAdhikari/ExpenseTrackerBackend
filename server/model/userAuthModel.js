@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema({
       message: "Both Password must be same",
     },
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

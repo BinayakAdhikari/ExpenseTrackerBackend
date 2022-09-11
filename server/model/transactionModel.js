@@ -12,13 +12,17 @@ const transactionSchema = new mongoose.Schema({
     type: String,
     required: [true, "Transaction message is required"],
   },
+  messageId: {
+    type: String,
+    required: [true, "A message id is required for identification"],
+  },
   credited: {
     type: Boolean,
     default: false,
   },
-  amount: {
-    type: Number,
-    required: [true, "A transaction must have an amount"],
+  date: {
+    type: Date,
+    required: [true, "Date of transaction is required"],
   },
   addedOn: {
     type: Date,
