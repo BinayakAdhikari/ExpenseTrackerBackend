@@ -5,26 +5,26 @@ dotenv.config({ path: "./config.env" });
 const app = require("./app");
 
 const DB = process.env.DATABASE.replace(
-  '<password>',
+  "<password>",
   process.env.DATABASE_PASSWORD
 );
 
-mongoose.connect(DB,{
-    useNewUrlParser:true,
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
     // useCreateIndex:true,
     // useFindAndModify:true,
-    useUnifiedTopology:true
-}).
-then(()=>{
-    console.log('DB Connection Sucessfull')
-})
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("DB Connection Sucessfull");
+  });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5001;
 
 // register view engine
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 app.listen(PORT, () => {
-    console.log("Server Started at port " + PORT);
-  });
-  
+  console.log("Server Started at port " + PORT);
+});
