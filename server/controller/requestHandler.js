@@ -53,14 +53,24 @@ exports.getAll = (Model) =>
       );
     }
 
-    let doc = await Model.find({ addedBy: currentUser._id })
-      .populate({
-        path: "addedBy",
-        select: "username email",
-        model: "User",
-    })
-    .sort({ addedOn: -1 });  
-     
+    let doc;
+    if (currentUser.isAdmin) {
+      doc = await Model.find()
+        .populate({
+          path: "addedBy",
+          select: "username email",
+          model: "User",
+        }).sort({ addedOn: -1 });
+    } else {
+      doc = await Model.find({ addedBy: currentUser._id })
+        .populate({
+          path: "addedBy",
+          select: "username email",
+          model: "User",
+        })
+        .sort({ addedOn: -1 });
+    }
+
     if (doc.length == 0) {
       return res.status(404).json({
         status: "Success",
