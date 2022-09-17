@@ -6,6 +6,24 @@ const User = require("../model/userAuthModel");
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log(Model);
+    if (Model.modelName === "Transactions") {
+      const allTransactions = await Model.find()
+        .populate({
+          path: "addedBy",
+          select: "username email",
+          model: "User",
+        }).sort({ addedOn: -1 });
+
+      console.log(allTransactions);
+
+      allTransactions.filter((transaction) => {
+        if (transaction.messageId === req.body.messageId) {
+          return next(new AppError("Message already exists", 404));
+        }
+      })
+
+    }
     const doc = await Model.create(req.body);
     res.status(201).send({
       status: "Success",

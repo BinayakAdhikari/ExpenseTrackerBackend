@@ -20,6 +20,16 @@ const transactionSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isProcessed: {
+    type: Boolean,
+    default: false,
+  },
+  amount: {
+    type: Number,
+  },
+  category: {
+    type: String,
+  },
   date: {
     type: Date,
     required: [true, "Date of transaction is required"],
