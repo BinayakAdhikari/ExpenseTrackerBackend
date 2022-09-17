@@ -12,4 +12,12 @@ router
   .route("/")
   .post(authenticationController.protect, bankController.postBanks);
 
+router
+  .route("/bank/:id")
+  .patch(authenticationController.protect, bankController.updateBank);
+
+router
+  .route("/bank/:id")
+  .delete(authenticationController.protect, bankController.deleteBank);
+
 module.exports = router;

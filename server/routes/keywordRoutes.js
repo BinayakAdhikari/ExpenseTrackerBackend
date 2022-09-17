@@ -12,4 +12,13 @@ router
   .route("/")
   .post(authenticationController.protect, keywordController.postKeyword);
 
+router
+  .route("/keyword/:id")
+  .patch(authenticationController.protect, keywordController.updateKeyword);
+
+router
+  .route("/keyword/:id")
+  .delete(authenticationController.protect, keywordController.deleteKeyword);
+
+
 module.exports = router;
