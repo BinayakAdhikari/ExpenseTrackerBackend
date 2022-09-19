@@ -72,7 +72,7 @@ exports.getAll = (Model) =>
     }
 
     let doc;
-    if (currentUser.isAdmin) {
+    if (currentUser.isAdmin || (Model.modelName === "Bank" || Model.modelName === "Keyword")) {
       doc = await Model.find()
         .populate({
           path: "addedBy",
