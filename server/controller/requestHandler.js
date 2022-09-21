@@ -3,6 +3,7 @@ const AppError = require("../utils/appError");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../model/userAuthModel");
+const axios = require('axios');
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -24,10 +25,30 @@ exports.createOne = (Model) =>
       })
 
     }
-    const doc = await Model.create(req.body);
-    res.status(201).send({
-      status: "Success",
-      data: doc,
+
+    const body = {
+      "message_body": req.body.message,
+    }
+    
+    axios.post('https://sms-semantic.herokuapp.com/analyse_sms/', body)
+    .then( async (anares) => {
+        console.log(`Status: ${anares.status}`);
+        console.log('Body: ', anares.data);
+
+        req.body.amount = anares.data.amount;
+        req.body.isProcessed = true;
+
+        if(anares.data.message_type === 'credit') {
+          req.body.credited = true;
+        }
+
+        const doc = await Model.create(req.body);
+        res.status(201).send({
+          status: "Success",
+          data: doc,
+    });
+    }).catch((err) => {
+        console.error(err);
     });
   });
 
