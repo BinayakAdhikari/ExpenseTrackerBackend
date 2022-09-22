@@ -18,7 +18,7 @@ exports.createOne = (Model) =>
 
       console.log(allTransactions);
 
-      await allTransactions.filter((transaction) => {
+      allTransactions.find((transaction) => {
         if (transaction.messageId === req.body.messageId) {
           return next(new AppError("Message already exists", 404));
         }
