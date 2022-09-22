@@ -20,7 +20,7 @@ exports.createOne = (Model) =>
 
       allTransactions.filter((transaction) => {
         if (transaction.messageId === req.body.messageId) {
-          return next(new AppError("Message already exists", 404));
+          return new AppError("Message already exists", 404);
         }
       })
 
