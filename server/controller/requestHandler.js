@@ -35,7 +35,7 @@ exports.createOne = (Model) =>
         console.log(`Status: ${anares.status}`);
         console.log('Body: ', anares.data);
 
-        req.body.amount = anares.data.amount;
+        req.body.amount = anares.data.extracted_amount;
         req.body.isProcessed = true;
 
         if(anares.data.message_type === 'credit') {
