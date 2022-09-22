@@ -30,7 +30,7 @@ exports.createOne = (Model) =>
       "message_body": req.body.message,
     }
     
-    axios.post('https://sms-semantic.herokuapp.com/analyse_sms/', body)
+    axios.post('https://sms-semantic.herokuapp.com/analyse_sms', body)
     .then( async (anares) => {
         console.log(`Status: ${anares.status}`);
         console.log('Body: ', anares.data);

@@ -25,7 +25,7 @@ const transactionSchema = new mongoose.Schema({
     default: false,
   },
   amount: {
-    type: Number,
+    type: String,
   },
   category: {
     type: String,
