@@ -8,6 +8,7 @@ const axios = require('axios');
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     console.log(Model);
+
     if (Model.modelName === "Transactions") {
       const allTransactions = await Model.find()
         .populate({
@@ -18,11 +19,16 @@ exports.createOne = (Model) =>
 
       console.log(allTransactions);
 
-      allTransactions.find((transaction) => {
-        if (transaction.messageId === req.body.messageId) {
+      for(let i=0; i<allTransactions.length; i++) {
+        if (allTransactions[i].messageId === req.body.messageId) {
           return next(new AppError("Message already exists", 404));
         }
-      })
+      }
+      // allTransactions.filter((transaction) => {
+      //   if (transaction.messageId === req.body.messageId) {
+      //     return next(new AppError("Message already exists", 404));
+      //   }
+      // })
 
     }
 
